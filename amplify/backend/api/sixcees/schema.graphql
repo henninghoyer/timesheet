@@ -1,0 +1,36 @@
+type Project @model 
+    @auth(rules: [{allow: owner, operations: [create, delete]}])
+    @key(name: "ProjectByNumber", fields: ["number"], queryField: "ProjectByNumber") {
+    id: ID!
+    number: String!
+    name: String!
+    description: String!
+    entries: [TimeEntry] @connection(keyName: "EntriesByProject")
+    owner: String
+}
+
+type TimeEntry @model 
+    @auth(rules: [{allow: owner, operations: [create, update, delete]}])
+    @key(name: "EntriesByProject", fields: ["projectID"], queryField: "EntriesByProject")
+    @key(name: "EntriesByDate", fields: ["date"], queryField: "EntriesByDate")
+    @key(name: "EntriesByUser", fields: ["owner"], queryField: "EntriesByUser")
+    @key(name: "EntriesByUserByDate", fields: ["owner", "date"], queryField: "EntriesByUserByDate") {
+    id: ID!
+    owner: String!
+    duration: Float!
+    date: AWSDate!
+    description: String!
+    invoice: InvoiceInfo @connection(keyName: "InvoiceByTimeEntry")
+    invoiceThumbnail: InvoiceInfo @connection(keyName: "InvoicebyTimeEntry")
+    projectID: ID!
+    project: Project @connection(fields: ["projectID"])
+}
+
+type InvoiceInfo @model 
+    @auth(rules: [{allow: owner, operations: [create, update, delete]}])
+    @key(name: "InvoicebyTimeEntry", fields: ["entryID", "key"]) {
+    key: String!
+    width: Int!
+    height: Int!
+    entryID: ID!
+}

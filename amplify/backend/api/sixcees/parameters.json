@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "sixcees",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authsixceese7b2cf01",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
