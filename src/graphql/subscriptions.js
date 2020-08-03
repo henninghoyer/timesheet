@@ -8,6 +8,7 @@ export const onCreateProject = /* GraphQL */ `
       number
       name
       description
+      status
       entries {
         items {
           id
@@ -21,7 +22,6 @@ export const onCreateProject = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       createdAt
       updatedAt
     }
@@ -34,6 +34,7 @@ export const onUpdateProject = /* GraphQL */ `
       number
       name
       description
+      status
       entries {
         items {
           id
@@ -47,7 +48,6 @@ export const onUpdateProject = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       createdAt
       updatedAt
     }
@@ -60,6 +60,7 @@ export const onDeleteProject = /* GraphQL */ `
       number
       name
       description
+      status
       entries {
         items {
           id
@@ -73,7 +74,6 @@ export const onDeleteProject = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       createdAt
       updatedAt
     }
@@ -109,10 +109,10 @@ export const onCreateTimeEntry = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }
@@ -151,10 +151,10 @@ export const onUpdateTimeEntry = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }
@@ -193,10 +193,10 @@ export const onDeleteTimeEntry = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }

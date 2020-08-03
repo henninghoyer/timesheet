@@ -8,6 +8,7 @@ export const getProject = /* GraphQL */ `
       number
       name
       description
+      status
       entries {
         items {
           id
@@ -21,7 +22,6 @@ export const getProject = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       createdAt
       updatedAt
     }
@@ -39,10 +39,10 @@ export const listProjects = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }
@@ -80,10 +80,10 @@ export const getTimeEntry = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }
@@ -127,7 +127,7 @@ export const listTimeEntrys = /* GraphQL */ `
           number
           name
           description
-          owner
+          status
           createdAt
           updatedAt
         }
@@ -189,10 +189,10 @@ export const projectByNumber = /* GraphQL */ `
         number
         name
         description
+        status
         entries {
           nextToken
         }
-        owner
         createdAt
         updatedAt
       }
@@ -243,7 +243,7 @@ export const entriesByProject = /* GraphQL */ `
           number
           name
           description
-          owner
+          status
           createdAt
           updatedAt
         }
@@ -297,7 +297,7 @@ export const entriesByDate = /* GraphQL */ `
           number
           name
           description
-          owner
+          status
           createdAt
           updatedAt
         }
@@ -351,7 +351,7 @@ export const entriesByUser = /* GraphQL */ `
           number
           name
           description
-          owner
+          status
           createdAt
           updatedAt
         }
@@ -407,7 +407,7 @@ export const entriesByUserByDate = /* GraphQL */ `
           number
           name
           description
-          owner
+          status
           createdAt
           updatedAt
         }

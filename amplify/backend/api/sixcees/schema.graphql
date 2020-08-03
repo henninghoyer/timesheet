@@ -5,8 +5,8 @@ type Project @model
     number: String!
     name: String!
     description: String!
+    status: String!
     entries: [TimeEntry] @connection(keyName: "EntriesByProject")
-    owner: String
 }
 
 type TimeEntry @model 

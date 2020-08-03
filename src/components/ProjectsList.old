@@ -1,0 +1,75 @@
+import React from 'react';
+import {Segment, Header, List} from 'semantic-ui-react';
+import {API, graphqlOperation} from 'aws-amplify';
+import {listProjects} from '../graphql/queries';
+import {onCreateProject} from '../graphql/subscriptions';
+const localUtils = require('./utils');
+
+function ProjectsList() {
+    const [projects, setProjects] = React.useState([]);
+    React.useEffect(() => {
+        getProjects()
+    }, []);
+
+    const getProjects = async() => {
+        const proms = [{"id": 1, "number": "MI-01", "name": "maiden"},{"id": 2, "number": "MI-02", "name": "maidens fear of the dark"},{"id": 3, "number": "MI-03", "name": "maidens number is ..."}];
+     
+        try {
+            console.log('Querying GraphQL');
+            let resp = await API.graphql(graphqlOperation(listProjects));
+            console.log(`A response was received: ${resp}`);
+            let items = resp.data.listProjects.items;
+            setProjects(items.sort(localUtils.makeComparator('number')));
+            console.log('Setup Subscription');
+            let subscription = API.graphql(
+                graphqlOperation(onCreateProject)
+            ).subscribe({
+                next: (projectData) => onNewProject(projectData)
+            });
+        } catch (error) {
+            setProjects(proms);
+            console.log(error);
+        }
+    }
+    
+    const onNewProject = (newData) => {
+        // When we get data about a new project, 
+        // we need to put in into an object 
+        // with the same shape as the original query results, 
+        // but with the new data added as well
+        let newProject = newData.value.data.onCreateProject;
+        console.log(`New Project: ${newProject}`);
+
+        console.log(projects);
+        // projects.push(newProject);
+        // setProjects(projects.sort(localUtils.makeComparator('number')));
+    }
+
+    // listProjects() {
+    //     return this.state.projects.sort(localUtils.makeComparator('number')).map(project => 
+    //         <li key={project.id}>
+    //             {project.number} - {project.name}
+    //         </li>);
+    // }
+    
+    
+        return(
+        // <ProjectsList>
+        <Segment>
+            <Header as='h3'>Active Projects</Header>
+                <List divided relaxed>
+                {projects.map(p => (
+              <li key={p.id}>
+                  <h4>{p.name}</h4>
+                  <span>Project Number: {p.number}</span>
+                  <p>{p.description}</p>
+              </li>
+          ))}
+                </List>
+        </Segment>
+        // </ProjectsList>
+        );
+                    
+}
+
+export default ProjectsList;
