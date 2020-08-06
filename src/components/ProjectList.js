@@ -1,5 +1,5 @@
 import React from 'react';
-import {Segment, Header, List} from 'semantic-ui-react';
+import {Segment, Header, Loader, Table} from 'semantic-ui-react';
 import {Connect} from 'aws-amplify-react';
 import {graphqlOperation} from 'aws-amplify';
 import {listProjects} from '../graphql/queries';
@@ -9,11 +9,17 @@ const localUtils = require('./utils');
 class ProjectList extends React.Component {
         projects() {
             return this.props.projects.sort(localUtils.makeComparator('number')).map(p => 
-                <li key={p.id}>
-                    <h4>{p.name}</h4>
-                    <span>Project Number: {p.number}</span>
-                    <p>{p.description}</p>
-                </li>
+                <Table.Row>
+                    <Table.Cell>
+                        {p.number}
+                    </Table.Cell>
+                    <Table.Cell>
+                        {p.name}
+                    </Table.Cell>
+                    <Table.Cell>
+                        {p.description}
+                    </Table.Cell>
+                </Table.Row>
             );
         }
   
@@ -21,16 +27,16 @@ class ProjectList extends React.Component {
         return(
             <Segment>
                 <Header as='h3'>Active Projects</Header>
-                <List divided relaxed>
-                    {this.projects()}
-                    {/* {projects.map(p => (
-                    <li key={p.id}>
-                        <h4>{p.name}</h4>
-                        <span>Project Number: {p.number}</span>
-                        <p>{p.description}</p>
-                    </li>
-                    ))} */}
-                </List>
+                <Table celled>
+                    <Table.Header>
+                            <Table.HeaderCell>Number</Table.HeaderCell>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Description</Table.HeaderCell>
+                    </Table.Header>
+                    <Table.Body>
+                        {this.projects()}
+                    </Table.Body>
+                </Table>
             </Segment>
         );
     }
@@ -50,7 +56,8 @@ class ProjectListLoader extends React.Component {
                     subscription={graphqlOperation(onCreateProject)} 
                     onSubscriptionMsg={this.onNewProject}>    
                 {({ data, loading, errors }) => {
-                    if (loading) { return <div>Loading...</div>; }
+                    // if (loading) { return <div>Loading...</div>; }
+                    if (loading) { return <Loader />}
                     if (errors.length > 0) { return <div>{JSON.stringify(errors)}</div>; }
                     if (!data.listProjects) return;
 
