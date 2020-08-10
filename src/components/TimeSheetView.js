@@ -1,5 +1,6 @@
 import React from 'react';
 import Timesheet from './TimeSheet';
+import TimeSheetSummary from './TimeSheetSummary';
 
 function TimeSheetView(props) {
     return(
@@ -9,8 +10,7 @@ function TimeSheetView(props) {
                     <Timesheet />
                 </div>
                 <div className="column">
-                    <img alt="Placeholder" src="https://react.semantic-ui.com/images/wireframe/paragraph.png" className="ui image" />
-                    {/* <TimesheetOverview /> */}
+                    <TimeSheetSummary />
                 </div>
             </div>
             {/* <div className="three column row">

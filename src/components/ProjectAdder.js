@@ -33,7 +33,7 @@ class ProjectAdder extends React.Component {
 
         try {
             const result = await API.graphql(graphqlOperation(createProject, { input: {name: this.state.projectName, number: this.state.projectNumber, description: this.state.projectDescription, status: this.state.projectStatus }}));
-            // console.info(`Created project with id ${result.data.createProject.id}. Point in time for creation: ${result.data.createProject.createdAt}. Point in time for update: ${result.data.createProject.updatedAt}`);
+            console.info(`Created project with id ${result.data.createProject.id}. Point in time for creation: ${result.data.createProject.createdAt}. Point in time for update: ${result.data.createProject.updatedAt}`);
         } catch(error) {
             console.log(error);
         }

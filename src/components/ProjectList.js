@@ -25,7 +25,7 @@ class ProjectList extends React.Component {
   
     render() {
         return(
-            <Segment>
+            <Segment className="scrolling content">
                 <Header as='h3'>Active Projects</Header>
                 <Table celled>
                     <Table.Header>

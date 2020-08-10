@@ -16,10 +16,11 @@ type TimeEntry @model
     @key(name: "EntriesByUser", fields: ["owner"], queryField: "EntriesByUser")
     @key(name: "EntriesByUserByDate", fields: ["owner", "date"], queryField: "EntriesByUserByDate") {
     id: ID!
-    owner: String!
+    owner: String
     duration: Float!
     date: AWSDate!
     description: String!
+    isadmin: Boolean
     invoice: InvoiceInfo @connection(keyName: "InvoiceByTimeEntry")
     invoiceThumbnail: InvoiceInfo @connection(keyName: "InvoicebyTimeEntry")
     projectID: ID!

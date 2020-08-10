@@ -19,6 +19,7 @@ export const createProject = /* GraphQL */ `
           duration
           date
           description
+          isadmin
           projectID
           createdAt
           updatedAt
@@ -48,6 +49,7 @@ export const updateProject = /* GraphQL */ `
           duration
           date
           description
+          isadmin
           projectID
           createdAt
           updatedAt
@@ -77,6 +79,7 @@ export const deleteProject = /* GraphQL */ `
           duration
           date
           description
+          isadmin
           projectID
           createdAt
           updatedAt
@@ -99,6 +102,7 @@ export const createTimeEntry = /* GraphQL */ `
       duration
       date
       description
+      isadmin
       invoice {
         key
         width
@@ -144,6 +148,7 @@ export const updateTimeEntry = /* GraphQL */ `
       duration
       date
       description
+      isadmin
       invoice {
         key
         width
@@ -189,6 +194,7 @@ export const deleteTimeEntry = /* GraphQL */ `
       duration
       date
       description
+      isadmin
       invoice {
         key
         width

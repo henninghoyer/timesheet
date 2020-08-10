@@ -1,47 +1,30 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 import {withAuthenticator, AmplifySignOut} from "@aws-amplify/ui-react";
-import ProjectListLoader from './components/ProjectList';
-import ProjectAdder from './components/ProjectAdder';
+import { Route, NavLink, HashRouter } from "react-router-dom";
+import TimeSheetView from './components/TimeSheetView';
+import ProjectView from './components/ProjectView';
 
 class App extends Component {
   render() {
   return (
+    <HashRouter>
     <div className="App">
     <div id="root">
       <div className="ui menu">
-        <a className="item">Time Sheet</a>
-        <a className="item">Overview </a>
+        {/* <a className="item">Time Sheet</a>
+        <a className="item">Overview </a> */}
         {/* <a class="item">Upcoming Events</a> */}
+        <li className="item"><NavLink to="/">Time Sheet</NavLink></li>
+        <li className="item"><NavLink to="/projects">Projects</NavLink></li>
         <AmplifySignOut />
       </div>
-      <Header as='h1'>Hello World!</Header>
-      <div className="ui vertically divided grid">
-        <div className="two column row">
-          <div className="column">
-            {/* <img src="https://react.semantic-ui.com/images/wireframe/paragraph.png" class="ui image" /> */}
-            <ProjectListLoader />
-            {/* <button onClick={this.listQuery}>GraphQL Query</button> */}
-          </div>
-          <div className="column">
-            {/* <img src="https://react.semantic-ui.com/images/wireframe/paragraph.png" class="ui image" /> */}
-            <ProjectAdder />
-          </div>
-        </div>
-        <div className="three column row">
-          <div className="column">
-            <img src="https://react.semantic-ui.com/images/wireframe/paragraph.png" className="ui image" />
-          </div>
-          <div className="column">
-            <img src="https://react.semantic-ui.com/images/wireframe/paragraph.png" className="ui image" />
-          </div>
-          <div className="column">
-            <img src="https://react.semantic-ui.com/images/wireframe/paragraph.png" className="ui image" />
-          </div>
-        </div>
+      <div id="content">
+        <Route exact path="/" component={TimeSheetView}/>
+        <Route path="/projects" component={ProjectView}/>
       </div>
     </div>
     </div>
+    </HashRouter>
   );
   }
 }

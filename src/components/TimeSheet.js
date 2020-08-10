@@ -4,8 +4,6 @@ import {API, graphqlOperation} from 'aws-amplify';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import {Connect} from 'aws-amplify-react';
 import {createTimeEntry} from '../graphql/mutations';
-// import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-// import ProjectSelector from './ProjectSelector';
 
 const listProjects = `query listProjects {
     listProjects{
@@ -24,20 +22,24 @@ class Timesheet extends React.Component {
             duration: 0.0,
             date: '',
             description: '',
-            projectID: ''
+            projectID: '',
+            isAdmin: false
         };
     }
 
     handleChange = (event, data) => {
         let change = {};
         //Bit of a hack for the select component
-        if(data && data.name == "projectID") {
+        if(data && data.name === "projectID") {
             change[data.name] = data.value;
+        } else {
+            change[event.target.name] = event.target.value;
         }
-        // console.log(event.target);
-        // console.log(data);
-        change[event.target.name] = event.target.value;
         this.setState(change);
+    }
+
+    handleAdminCheckboxChange = (event) => {
+        this.setState({isAdmin: !this.state.isAdmin});
     }
 
     handleDateChange = (event, data) => {
@@ -48,10 +50,9 @@ class Timesheet extends React.Component {
     handleSubmit = async (event) => {
         event.preventDefault();
         console.log('Creating new timesheet');
-        // console.log(this.state);
 
         try {
-            const result = await API.graphql(graphqlOperation(createTimeEntry, { input: {duration: Number.parseFloat(this.state.duration), description: this.state.description, projectID: this.state.projectID, date: this.state.date }}));
+            const result = await API.graphql(graphqlOperation(createTimeEntry, { input: {duration: Number.parseFloat(this.state.duration), description: this.state.description, projectID: this.state.projectID, date: this.state.date, isadmin: this.state.isAdmin }}));
             console.info(`Created timesheet with id ${result.data.createTimeEntry.id}`);
         } catch(error) {
             console.log(error);
@@ -81,12 +82,16 @@ class Timesheet extends React.Component {
                 }}
             </Connect>
                         <Form.Input fluid name="duration" label="Duration" type="number" min="0.5" max="24" step="0.5" placeholder='Duration' onChange={this.handleChange} />                        
+                        {/* <Form.Checkbox fluid name="isAdmin" label="Is Admin" onChange={this.handleChange}></Form.Checkbox> */}
+                    </Form.Group>
+                    <Form.Group inline>
+                        <Form.Checkbox inline fluid label='Admin' name="isAdmin" checked={this.state.isAdmin} onChange={this.handleAdminCheckboxChange}/>
                     </Form.Group>
                     <Form.Group>
                         <SemanticDatepicker fluid name='date' format='YYYY-MM-DD' onChange={this.handleDateChange} />
                     </Form.Group>
                     <Form.TextArea name='description' label='Description' placeholder='Task Description...' onChange={this.handleChange} />
-        
+                    
                     <Form.Button>Submit</Form.Button>
                 </Form>
             </Segment>

@@ -16,6 +16,7 @@ export const getProject = /* GraphQL */ `
           duration
           date
           description
+          isadmin
           projectID
           createdAt
           updatedAt
@@ -58,6 +59,7 @@ export const getTimeEntry = /* GraphQL */ `
       duration
       date
       description
+      isadmin
       invoice {
         key
         width
@@ -105,6 +107,7 @@ export const listTimeEntrys = /* GraphQL */ `
         duration
         date
         description
+        isadmin
         invoice {
           key
           width
@@ -221,6 +224,7 @@ export const entriesByProject = /* GraphQL */ `
         duration
         date
         description
+        isadmin
         invoice {
           key
           width
@@ -275,6 +279,7 @@ export const entriesByDate = /* GraphQL */ `
         duration
         date
         description
+        isadmin
         invoice {
           key
           width
@@ -329,6 +334,7 @@ export const entriesByUser = /* GraphQL */ `
         duration
         date
         description
+        isadmin
         invoice {
           key
           width
@@ -385,6 +391,7 @@ export const entriesByUserByDate = /* GraphQL */ `
         duration
         date
         description
+        isadmin
         invoice {
           key
           width

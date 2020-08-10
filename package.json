@@ -11,7 +11,9 @@
     "aws-amplify-react": "^4.1.21",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-semantic-ui-datepickers": "^2.8.0",
     "semantic-ui-react": "^1.0.0"
   },
   "scripts": {
